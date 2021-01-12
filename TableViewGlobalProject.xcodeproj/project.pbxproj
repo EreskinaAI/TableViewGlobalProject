@@ -60,8 +60,8 @@
 				7AF2008325ACFABD0032E707 /* MainViewController.swift */,
 				7AF2006F25ACF64C0032E707 /* SceneDelegate.swift */,
 				7AF2007325ACF64C0032E707 /* Main.storyboard */,
-				7AF2007625ACF64E0032E707 /* Assets.xcassets */,
 				7AF2007825ACF64E0032E707 /* LaunchScreen.storyboard */,
+				7AF2007625ACF64E0032E707 /* Assets.xcassets */,
 				7AF2007B25ACF64E0032E707 /* Info.plist */,
 			);
 			path = TableViewGlobalProject;
