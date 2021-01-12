@@ -13,6 +13,7 @@
 		7AF2007725ACF64E0032E707 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AF2007625ACF64E0032E707 /* Assets.xcassets */; };
 		7AF2007A25ACF64E0032E707 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AF2007825ACF64E0032E707 /* LaunchScreen.storyboard */; };
 		7AF2008425ACFABD0032E707 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2008325ACFABD0032E707 /* MainViewController.swift */; };
+		7AF2008925AE40340032E707 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2008825AE40340032E707 /* CustomTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		7AF2007925ACF64E0032E707 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7AF2007B25ACF64E0032E707 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AF2008325ACFABD0032E707 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		7AF2008825AE40340032E707 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				7AF2006D25ACF64C0032E707 /* AppDelegate.swift */,
 				7AF2008325ACFABD0032E707 /* MainViewController.swift */,
+				7AF2008825AE40340032E707 /* CustomTableViewCell.swift */,
 				7AF2006F25ACF64C0032E707 /* SceneDelegate.swift */,
 				7AF2007325ACF64C0032E707 /* Main.storyboard */,
 				7AF2007825ACF64E0032E707 /* LaunchScreen.storyboard */,
@@ -139,6 +142,7 @@
 			files = (
 				7AF2008425ACFABD0032E707 /* MainViewController.swift in Sources */,
 				7AF2006E25ACF64C0032E707 /* AppDelegate.swift in Sources */,
+				7AF2008925AE40340032E707 /* CustomTableViewCell.swift in Sources */,
 				7AF2007025ACF64C0032E707 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
