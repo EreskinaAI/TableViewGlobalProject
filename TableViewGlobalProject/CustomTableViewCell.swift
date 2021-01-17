@@ -8,6 +8,7 @@
 import UIKit
 
 class CustomTableViewCell: UITableViewCell {
+	// outlets выносятся в отдельный класс, тк ячека tableView является custom
 
 	@IBOutlet weak var imageOfPlace: UIImageView!
 	@IBOutlet weak var nameLabel: UILabel!

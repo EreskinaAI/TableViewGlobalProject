@@ -11,7 +11,7 @@ class MainViewController: UITableViewController {
 
 
 
-	let arrayOfPlaces = Place.getListOfPlaces() // метод из struct, который вернет новый заполненный массив с полным списком заведений
+	var arrayOfPlaces = Place.getListOfPlaces() // метод из struct, который вернет новый заполненный массив с полным списком заведений
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +34,17 @@ class MainViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
 
-		cell.nameLabel.text = arrayOfPlaces[indexPath.row].name // обпащаемся к св-ву из struct по конкретно вытащенному объекту
-		cell.imageOfPlace.image = UIImage(named: arrayOfPlaces[indexPath.row].image) // индекс названия в массиве соответствует индексу (названию) картинки
-		cell.locationLabel.text = arrayOfPlaces[indexPath.row].location
-		cell.typeLabel.text = arrayOfPlaces[indexPath.row].type
+		let place = arrayOfPlaces[indexPath.row] // объект по конкретной строке
+
+		cell.nameLabel.text = place.name // обращаемся к св-ву из struct по конкретно вытащенному объекту
+		cell.locationLabel.text = place.location
+		cell.typeLabel.text = place.type
+
+		if place.image == nil {  // присваеваем изображение либо из названия либо свое выбираем
+			cell.imageOfPlace.image = UIImage(named: place.restaurantImage!)
+		} else {
+			cell.imageOfPlace.image = place.image
+		}
 
 		cell.imageOfPlace.layer.cornerRadius = cell.imageOfPlace.frame.size.height / 2 // округлить image view
 		cell.imageOfPlace.clipsToBounds = true  // округлить само изображение (обрезать по границам)
@@ -62,5 +69,15 @@ class MainViewController: UITableViewController {
 //
 //
 
-	@IBAction func cancelAction(_segue: UIStoryboardSegue) {}  // чисто для нажатия кнопки cancel на navigation bar
+	@IBAction func unwindSegue(segue: UIStoryboardSegue) {
+		// при нажатии save передача данных из одного вьюконтроллера в другой
+
+		guard let newPlaceVC = segue.source as? NewPlaceTableViewController else {return}
+		newPlaceVC.saveNewPlace() // сохранили внесенные данные
+		arrayOfPlaces.append(newPlaceVC.newPlace!) //  добавили в массив новый заполненный объект
+		tableView.reloadData() // обновили данные таблицы
+	}
+
+
+
 }

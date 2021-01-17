@@ -5,14 +5,16 @@
 //  Created by 17795838 on 14.01.2021.
 //
 
-import Foundation
+//import Foundation UIKit уже содержит в себе UIFoundation
+import UIKit
 
 struct Place {  // модель для хранения данных (отражение объекта), описывает все поля для доступности работы с объектом (внешний вид приложения)
 
-	var name: String
-	var location: String
-	var type: String
-	var image: String
+	var name: String // не стоит опционал, тк поле-обязательно для заполнения
+	var location: String?
+	var type: String?
+	var image: UIImage?
+	var restaurantImage: String?
 
 	static let restaurantNames = [ // вспомогательный массив в качестве св-ва struct для генерации тестовых записей
 		"Burger Heroes", "Kitchen", "Bonsai", "Дастархан", "Индокитай", "X.O", "Балкан Гриль", "Sherlock Holmes",
@@ -24,7 +26,11 @@ struct Place {  // модель для хранения данных (отраж
 		var arrayListOfPlaces = [Place]()
 
 		for place in restaurantNames { // ищем соответствия из вспомагательного массива и подставляем(добавляем) в новый
-			arrayListOfPlaces.append(Place(name: place, location: "Уфа", type: "Ресторан", image: place))
+			arrayListOfPlaces.append(Place(name: place,
+										   location: "Уфа",
+										   type: "Ресторан",
+										   image: nil,
+										   restaurantImage: place))
 		}
 
 		return arrayListOfPlaces
