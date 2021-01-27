@@ -11,7 +11,7 @@ class MainViewController: UITableViewController {
 
 
 
-	var arrayOfPlaces = Place.getListOfPlaces() // метод из struct, который вернет новый заполненный массив с полным списком заведений
+//	var arrayOfPlaces = Place.getListOfPlaces() // метод из struct, который вернет новый заполненный массив с полным списком заведений
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +25,15 @@ class MainViewController: UITableViewController {
 //        return 1  // по умолчанию Table View возвращает 1 секцию
 //    }
 
+	/*
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
 		return arrayOfPlaces.count
     }
+*/
 
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+/*
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
 
 		let place = arrayOfPlaces[indexPath.row] // объект по конкретной строке
@@ -51,7 +53,8 @@ class MainViewController: UITableViewController {
 
         return cell
     }
-
+*/
+	
  // MARK: - Table View Delegate
 //
 //	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -74,7 +77,7 @@ class MainViewController: UITableViewController {
 
 		guard let newPlaceVC = segue.source as? NewPlaceTableViewController else {return}
 		newPlaceVC.saveNewPlace() // сохранили внесенные данные
-		arrayOfPlaces.append(newPlaceVC.newPlace!) //  добавили в массив новый заполненный объект
+//		arrayOfPlaces.append(newPlaceVC.newPlace!) //  добавили в массив новый заполненный объект
 		tableView.reloadData() // обновили данные таблицы
 	}
 
