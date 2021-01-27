@@ -6,15 +6,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MainViewController: UITableViewController {
 
 
 
-//	var arrayOfPlaces = Place.getListOfPlaces() // метод из struct, который вернет новый заполненный массив с полным списком заведений
+	var arrayOfPlaces: Results<Place>! // текущее состояние хранилища в тек потоке/аналог массива(автообновл тип контейнера, кот возвращает запраш объекты)
 
-    override func viewDidLoad() {
+	override func viewDidLoad() {
         super.viewDidLoad()
+
+		arrayOfPlaces = realm.objects(Place.self) // отображение всех объектов из базы данных
 
 
     }
@@ -25,14 +28,14 @@ class MainViewController: UITableViewController {
 //        return 1  // по умолчанию Table View возвращает 1 секцию
 //    }
 
-	/*
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-		return arrayOfPlaces.count
+		return arrayOfPlaces.isEmpty ? 0 : arrayOfPlaces.count
     }
-*/
 
-/*
+
+
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
 
@@ -41,19 +44,15 @@ class MainViewController: UITableViewController {
 		cell.nameLabel.text = place.name // обращаемся к св-ву из struct по конкретно вытащенному объекту
 		cell.locationLabel.text = place.location
 		cell.typeLabel.text = place.type
+		cell.imageOfPlace.image = UIImage(data: place.imageData!)
 
-		if place.image == nil {  // присваеваем изображение либо из названия либо свое выбираем
-			cell.imageOfPlace.image = UIImage(named: place.restaurantImage!)
-		} else {
-			cell.imageOfPlace.image = place.image
-		}
 
 		cell.imageOfPlace.layer.cornerRadius = cell.imageOfPlace.frame.size.height / 2 // округлить image view
 		cell.imageOfPlace.clipsToBounds = true  // округлить само изображение (обрезать по границам)
 
         return cell
     }
-*/
+
 	
  // MARK: - Table View Delegate
 //
@@ -77,7 +76,6 @@ class MainViewController: UITableViewController {
 
 		guard let newPlaceVC = segue.source as? NewPlaceTableViewController else {return}
 		newPlaceVC.saveNewPlace() // сохранили внесенные данные
-//		arrayOfPlaces.append(newPlaceVC.newPlace!) //  добавили в массив новый заполненный объект
 		tableView.reloadData() // обновили данные таблицы
 	}
 

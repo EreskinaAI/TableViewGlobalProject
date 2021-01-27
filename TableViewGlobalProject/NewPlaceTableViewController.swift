@@ -11,7 +11,7 @@ class NewPlaceTableViewController: UITableViewController {
 
 	// удалили все методы, тк ячейка статическая, а не динамическая (без идентификатора, настроеная вручную)
 
-	var newPlace = Place() // инициализация значениями по умолчанию
+var newPlace = Place() // инициализация значениями по умолчанию
 	var imageIsChanged = false // для замены фонового изобр нашей картинкой(если пользователь не выбрал из галереи)
 
 	@IBOutlet weak var placeImage: UIImageView! // outlet находится в самом классе, тк ячейки в этоим tableView не custom, а static
@@ -24,10 +24,6 @@ class NewPlaceTableViewController: UITableViewController {
 
 	override func viewDidLoad() {
         super.viewDidLoad()
-
-//		DispatchQueue.main.async { // запись в базу данных в фоновом потоке (без зависания и доступ к объекту налету без обновления интерфейса)
-//			self.newPlace.savePlaces()
-//		}
 
 
 		tableView.tableFooterView = UIView() // строки табл, где нет контента будут без линий (как обычный view)
@@ -87,13 +83,14 @@ class NewPlaceTableViewController: UITableViewController {
 			image = #imageLiteral(resourceName: "imagePlaceholder")  // если пользователь не выбрал свою картинку, то ставим свое фоновое изображение
 		}
 
-		/*
-		newPlace = Place(name: placeName.text!,
-						 location: placeLocation.text,
-						 type: placeType.text,
-						 image: image,
-						 restaurantImage: nil)
-		*/
+		let imageData = image?.pngData() // конверт-я в тип Data (для realm)
+
+		let newPlace = Place(name: placeName.text!,
+							 location: placeLocation.text,
+							 type: placeType.text!,
+							 imageData: imageData)
+
+		StorageManager.saveOblect(with: newPlace) // сохранение нового объекта в базе данных
 	}
 
 

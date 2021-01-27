@@ -16,36 +16,14 @@ class Place: Object {  // модель для хранения данных (о�
 	@objc dynamic var type: String?
 	@objc dynamic var imageData: Data?
 
+	convenience init(name: String, location: String?, type: String?, imageData: Data?) {
+// комплексный init в классе абсолютно для всех св-в
 
-	 let restaurantNames = [ // вспомогательный массив в качестве св-ва struct для генерации тестовых записей
-		"Burger Heroes", "Kitchen", "Bonsai", "Дастархан", "Индокитай", "X.O", "Балкан Гриль", "Sherlock Holmes",
-		"Speak Easy", "Morris Pub", "Вкусные истории", "Классик", "Love&Life", "Шок", "Бочка"
-	]
-
- func savePlaces() { // одноразовый запуск и хранить в базе данных
-
-		for place in restaurantNames { // ищем соответствия из вспомагательного массива и присваеваем значения св-вам класса
-
-			let image = UIImage(named: place) // тек изобр заведения
-			guard let imageData = image?.pngData() else {return}// конверт-я типа image в Data (в realm нет image)
-
-			let newPlace = Place()
-
-			newPlace.name = place
-			newPlace.location = "Ufa"
-			newPlace.type = "Restaurant"
-			newPlace.imageData = imageData
-
-			StorageManager.saveOblect(with: newPlace)
-
-
-
-		}
-
-
-
-
-
+		self.init() // значения по умолчанию
+		self.name = name //передаются значения из параметров
+		self.location = location
+		self.type = type
+		self.imageData = imageData
 	}
 
 }
