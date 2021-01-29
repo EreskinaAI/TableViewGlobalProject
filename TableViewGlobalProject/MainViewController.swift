@@ -55,6 +55,16 @@ class MainViewController: UITableViewController {
 
 	
  // MARK: - Table View Delegate
+
+	override func tableView(_ tableView: UITableView,// метод по редактированию строк(добавить/удалить) путем свайпа
+							commit editingStyle: UITableViewCell.EditingStyle,
+							forRowAt indexPath: IndexPath) {
+		if editingStyle == .delete {
+			let place = arrayOfPlaces[indexPath.row] // извлекаем объект из массива(списка заведений) для последующего удаления как из базы, так и из таблицы
+			StorageManager.deleteObject(with: place)
+			tableView.deleteRows(at: [indexPath], with: .automatic)
+		}
+	}
 //
 //	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //		return 85   // увеличили высоту строк

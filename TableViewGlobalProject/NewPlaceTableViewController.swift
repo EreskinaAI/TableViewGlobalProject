@@ -90,7 +90,7 @@ var newPlace = Place() // инициализация значениями по �
 							 type: placeType.text!,
 							 imageData: imageData)
 
-		StorageManager.saveOblect(with: newPlace) // сохранение нового объекта в базе данных
+		StorageManager.saveObject(with: newPlace) // сохранение нового объекта в базе данных
 	}
 
 
