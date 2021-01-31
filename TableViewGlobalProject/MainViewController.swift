@@ -8,9 +8,10 @@
 import UIKit
 import RealmSwift
 
-class MainViewController: UITableViewController {
+class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-
+	@IBOutlet weak var tableView: UITableView!
+	
 
 	var arrayOfPlaces: Results<Place>! // текущее состояние хранилища в тек потоке/аналог массива(автообновл тип контейнера, кот возвращает запраш объекты)
 
@@ -29,14 +30,14 @@ class MainViewController: UITableViewController {
 //    }
 
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
 		return arrayOfPlaces.isEmpty ? 0 : arrayOfPlaces.count
     }
 
 
 
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
 
 		let place = arrayOfPlaces[indexPath.row] // объект по конкретной строке
@@ -56,7 +57,7 @@ class MainViewController: UITableViewController {
 	
  // MARK: - Table View Delegate
 
-	override func tableView(_ tableView: UITableView,// метод по редактированию строк(добавить/удалить) путем свайпа
+	 func tableView(_ tableView: UITableView,// метод по редактированию строк(добавить/удалить) путем свайпа
 							commit editingStyle: UITableViewCell.EditingStyle,
 							forRowAt indexPath: IndexPath) {
 		if editingStyle == .delete {
