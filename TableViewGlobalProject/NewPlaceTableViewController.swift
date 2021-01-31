@@ -11,6 +11,7 @@ class NewPlaceTableViewController: UITableViewController {
 
 	// удалили все методы, тк ячейка статическая, а не динамическая (без идентификатора, настроеная вручную)
 
+	var currentPlace: Place? // тек заведение
 var newPlace = Place() // инициализация значениями по умолчанию
 	var imageIsChanged = false // для замены фонового изобр нашей картинкой(если пользователь не выбрал из галереи)
 
@@ -27,9 +28,14 @@ var newPlace = Place() // инициализация значениями по �
 
 
 		tableView.tableFooterView = UIView() // строки табл, где нет контента будут без линий (как обычный view)
+
 		saveButton.isEnabled = false //  кнопка save по умолчанию будет отключена
+
 		placeName.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
 		// довавляем действие к аутлету через func (#selector) для логики отслеживания кнопки save и текст поля placeName
+
+		setupEditScreen() 
+
 
     }
 
@@ -73,7 +79,7 @@ var newPlace = Place() // инициализация значениями по �
 			view.endEditing(true)
 		}
 	}
-	func saveNewPlace() { // передаем данные из текстовых полей в соответствии со св-вами struct
+	func savePlace() { // передаем данные из текстовых полей в соответствии со св-вами struct (сохраняем как отредакттр ячейку, так и новый объект)
 
 		var image: UIImage?
 
@@ -90,8 +96,51 @@ var newPlace = Place() // инициализация значениями по �
 							 type: placeType.text!,
 							 imageData: imageData)
 
-		StorageManager.saveObject(with: newPlace) // сохранение нового объекта в базе данных
+		if currentPlace != nil {
+			try! realm.write { // обновляем данные по редактир ячейке в базе данных
+				currentPlace?.name = newPlace.name
+				currentPlace?.location = newPlace.location
+				currentPlace?.type = newPlace.type
+				currentPlace?.imageData = newPlace.imageData
+			}
+		} else {
+				StorageManager.saveObject(with: newPlace) // сохранение нового объекта в базе данных
+		}
+
+
 	}
+
+	private func setupEditScreen() { // Редактируем уже заполненную ячейку с заведением
+
+		if currentPlace != nil {
+
+			setupNavigationBar() // метод доступен только при редактировании ячейки
+			imageIsChanged = true // чтобы менялось фоновое изображение на выбранную картинку
+
+			guard let data = currentPlace?.imageData, let image = UIImage(data: data)
+			else {return} // конвертация в uiImage из data
+
+			placeImage.image = image
+			placeImage.contentMode = .scaleAspectFill // масштабирование картинки
+			placeName.text = currentPlace?.name // присваеваем тек заведению значения из аутлетов
+			placeLocation.text = currentPlace?.location
+			placeType.text = currentPlace?.type
+		}
+	}
+
+		private func setupNavigationBar() {// редактируем навигейшнбар внутри выделенной редактируемой ячейки
+
+			if let topItem = navigationController?.navigationBar.topItem {// убираем заголовок у кнопки возврата
+				topItem.backBarButtonItem = UIBarButtonItem(title: "",
+															style: .plain,
+															target: nil,
+															action: nil)
+			}
+
+			navigationItem.leftBarButtonItem = nil // убрали кнопку cancel с панели
+			title = currentPlace?.name // заголовок на панели это название заведения
+			saveButton.isEnabled = true // доступность кнопки save
+		}
 
 
 	@IBAction func cancelAction(_ sender: Any) {
