@@ -15,6 +15,7 @@ class Place: Object {  // модель для хранения данных (о�
 	@objc dynamic var location: String?
 	@objc dynamic var type: String?
 	@objc dynamic var imageData: Data?
+	@objc dynamic var date = Date() // св-во чисто для внутр испол-я (для сортировки по дате), не доступно пользователю
 
 	convenience init(name: String, location: String?, type: String?, imageData: Data?) {
 // комплексный init в классе абсолютно для всех св-в

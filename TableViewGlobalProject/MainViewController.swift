@@ -11,9 +11,11 @@ import RealmSwift
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	@IBOutlet weak var tableView: UITableView!
-	
+	@IBOutlet weak var segmentedControl: UISegmentedControl!
+	@IBOutlet weak var reversedSortingButton: UIBarButtonItem!
 
 	var arrayOfPlaces: Results<Place>! // текущее состояние хранилища в тек потоке/аналог массива(автообновл тип контейнера, кот возвращает запраш объекты)
+	var ascendingSorting = true // св-во(сортировка по умолчанию массива по возрастанию)
 
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +100,34 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		tableView.reloadData() // обновили данные таблицы
 	}
 
+	@IBAction func sortSelection(_ sender: UISegmentedControl) {
+		// сортировка в segmentedControl по выбранному индексу
 
+		sorting()
 
+		tableView.reloadData()
+	}
+
+	@IBAction func reversedSorting(_ sender: Any) {
+		// сортировка на навигейшнконтроллере кнопкой стрелки вверх-вниз(реверсия)
+
+		ascendingSorting.toggle() // встроенный метод для смены значений на противоположное у типа Bool
+		if ascendingSorting == true {
+			reversedSortingButton.image = #imageLiteral(resourceName: "ZA")
+		} else {
+			reversedSortingButton.image = #imageLiteral(resourceName: "AZ")
+		}
+		sorting()
+	}
+
+	private func sorting() {// комплексная сортировка в зависимости от значения (2 параметра участвуют)
+
+		if segmentedControl.selectedSegmentIndex == 0 {
+			arrayOfPlaces = arrayOfPlaces.sorted(byKeyPath: "date", ascending: ascendingSorting)
+		} else {
+			arrayOfPlaces = arrayOfPlaces.sorted(byKeyPath: "name", ascending: ascendingSorting)
+		}
+
+		tableView.reloadData()
+	}
 }
