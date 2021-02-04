@@ -10,18 +10,36 @@ import RealmSwift
 
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+	private let searchController = UISearchController(searchResultsController: nil) // результаты поиска = на том же экране где контент
+	private var arrayOfPlaces: Results<Place>! // текущее состояние хранилища в тек потоке/аналог массива(автообновл тип контейнера, кот возвращает запраш объекты)
+	private var filteredPlaces: Results<Place>! // массив уже с отфильтр местами
+	private var ascendingSorting = true // св-во(сортировка по умолчанию массива по возрастанию)
+	private var searchBarIsEmpty: Bool { // возвращает true если строка поиска пустая
+		guard let text = searchController.searchBar.text else {return false}
+		return text.isEmpty
+	}
+	private var isFiltering: Bool {// св-во для отслеж-я активации поиск запроса
+		return searchController.isActive && !searchBarIsEmpty
+	}
+
+
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var segmentedControl: UISegmentedControl!
 	@IBOutlet weak var reversedSortingButton: UIBarButtonItem!
 
-	var arrayOfPlaces: Results<Place>! // текущее состояние хранилища в тек потоке/аналог массива(автообновл тип контейнера, кот возвращает запраш объекты)
-	var ascendingSorting = true // св-во(сортировка по умолчанию массива по возрастанию)
+
 
 	override func viewDidLoad() {
         super.viewDidLoad()
 
 		arrayOfPlaces = realm.objects(Place.self) // отображение всех объектов из базы данных
 
+//		MARK: setup the search controller
+		searchController.searchResultsUpdater = self  // получатель обновления поиска это сам класс
+		searchController.obscuresBackgroundDuringPresentation = false// взаимод-е с контроллером отображения поиска как с основным
+		searchController.searchBar.placeholder = "Search"// название строки поиска
+		navigationItem.searchController = searchController // строку поиска встраиваем в навигейшн бар
+		definesPresentationContext = true// отспускаем строку поиска при переходе на др экран
 
     }
 
@@ -33,7 +51,11 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+
+		if isFiltering == true {
+			return filteredPlaces.count // при активной строке поиска количество строк берем из отфильтр массива
+		}
+
 		return arrayOfPlaces.isEmpty ? 0 : arrayOfPlaces.count
     }
 
@@ -42,7 +64,13 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
 
-		let place = arrayOfPlaces[indexPath.row] // объект по конкретной строке
+	var place = Place()
+
+	if isFiltering == true { // достаем конкретный объект из опред массива(либо из отфильтр, либо из обычного)
+		place = filteredPlaces[indexPath.row]
+	} else {
+		place = arrayOfPlaces[indexPath.row]
+	}
 
 		cell.nameLabel.text = place.name // обращаемся к св-ву из struct по конкретно вытащенному объекту
 		cell.locationLabel.text = place.location
@@ -82,7 +110,14 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
 		if segue.identifier == "showDetail" {
 			guard let indexPath = tableView.indexPathForSelectedRow else {return} // достаем индекс по выделенной ячейке
-			let place = arrayOfPlaces[indexPath.row] // достаем элемент уэе по этому индексу из массива
+
+			var place = Place()
+			if isFiltering == true {
+				place = filteredPlaces[indexPath.row] // попадаем на экран с деталями в зависимости от массива(отфильтр или нет)
+			} else {
+				place = arrayOfPlaces[indexPath.row]
+			}
+
 			let newPlaceVC = segue.destination as! NewPlaceTableViewController // достучались до экрана перехода
 			newPlaceVC.currentPlace = place// передали объект из выделенной существ ячейки с заведением на новый экран
 
@@ -131,3 +166,22 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		tableView.reloadData()
 	}
 }
+extension MainViewController: UISearchResultsUpdating {
+	// обновляем рез-ты поиска в соответствии с введенным значением в саму строку поиска
+
+
+	func updateSearchResults(for searchController: UISearchController) {
+		filterContentForSearchText(with: searchController.searchBar.text!) // вызов приват метода по вводимому в строку поиска
+	}
+	private func filterContentForSearchText(with searchText: String) {
+		// фильтрация контента в соответствии с поисковым запросом
+
+		filteredPlaces = arrayOfPlaces.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@", searchText, searchText)
+
+// фильтруем в realm по названию и локации (не важно заглавная буква или строчная [c] и подставляем текст из строки поиска)
+		// %@ - подстановка элемента место значения, predicate statement в "", после запятой подстановка значения по порядку
+
+		tableView.reloadData()
+	}
+}
+
