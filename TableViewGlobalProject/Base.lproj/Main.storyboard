@@ -152,7 +152,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="iTd-eB-cGq" customClass="RatingControl" customModule="TableViewGlobalProject" customModuleProvider="target">
+                                                <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="252" placeholderIntrinsicHeight="44" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="iTd-eB-cGq" customClass="RatingControl" customModule="TableViewGlobalProject" customModuleProvider="target">
                                                     <rect key="frame" x="81" y="48" width="252" height="44"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="starCount">
@@ -353,6 +353,11 @@
             <point key="canvasLocation" x="1158" y="-672"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="iTd-eB-cGq">
+            <size key="intrinsicContentSize" width="252" height="44"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="aXa-vZ-1Dw"/>
     </inferredMetricsTieBreakers>

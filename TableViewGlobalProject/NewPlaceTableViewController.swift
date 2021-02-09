@@ -27,7 +27,11 @@ var newPlace = Place() // инициализация значениями по �
         super.viewDidLoad()
 
 
-		tableView.tableFooterView = UIView() // строки табл, где нет контента будут без линий (как обычный view)
+		tableView.tableFooterView = UIView(frame: CGRect(x: 0,// строки табл, где нет контента будут без линий (как обычный view)
+														 y: 0,
+														 width: tableView.frame.size.width,
+														 height: 1))
+
 
 		saveButton.isEnabled = false //  кнопка save по умолчанию будет отключена
 

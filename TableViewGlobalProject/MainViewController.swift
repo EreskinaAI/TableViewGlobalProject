@@ -87,6 +87,10 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 	
  // MARK: - Table View Delegate
 
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)// отмена выделения после закрытия окна редактирования
+	}
+
 	 func tableView(_ tableView: UITableView,// метод по редактированию строк(добавить/удалить) путем свайпа
 							commit editingStyle: UITableViewCell.EditingStyle,
 							forRowAt indexPath: IndexPath) {
