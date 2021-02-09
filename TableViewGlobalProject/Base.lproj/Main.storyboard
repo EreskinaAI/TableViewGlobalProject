@@ -145,6 +145,28 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="140" id="DDn-qE-afp">
+                                        <rect key="frame" x="0.0" y="503" width="414" height="140"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DDn-qE-afp" id="Vbp-ZP-hhE">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="iTd-eB-cGq" customClass="RatingControl" customModule="TableViewGlobalProject" customModuleProvider="target">
+                                                    <rect key="frame" x="81" y="48" width="252" height="44"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="starCount">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iTd-eB-cGq" firstAttribute="centerX" secondItem="Vbp-ZP-hhE" secondAttribute="centerX" id="DiX-NK-2wo"/>
+                                                <constraint firstItem="iTd-eB-cGq" firstAttribute="centerY" secondItem="Vbp-ZP-hhE" secondAttribute="centerY" id="UdW-ty-gHN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -153,28 +175,23 @@
                             <outlet property="delegate" destination="S4H-V4-NWJ" id="EB5-oq-aGc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="New Place" largeTitleDisplayMode="always" id="3XA-S5-bZd">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="pLc-r2-Jxr">
+                    <navigationItem key="navigationItem" title="New Place" largeTitleDisplayMode="always" id="jhI-nT-yqx">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="un4-d7-rdQ">
                             <connections>
-                                <action selector="cancelAction:" destination="S4H-V4-NWJ" id="pyb-vf-YoR"/>
+                                <action selector="cancelAction:" destination="S4H-V4-NWJ" id="2WI-BQ-DaM"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="1DM-R3-OFK">
-                            <connections>
-                                <segue destination="Odv-9t-84k" kind="unwind" unwindAction="unwindSegueWithSegue:" id="Ozu-hS-Aa8"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="VoT-hf-b2L"/>
                     </navigationItem>
                     <connections>
                         <outlet property="placeImage" destination="qYC-36-hll" id="CFu-G9-MJj"/>
                         <outlet property="placeLocation" destination="GWL-dQ-0ho" id="VOF-CN-wkW"/>
                         <outlet property="placeName" destination="3Od-QZ-n0o" id="eKt-e6-BxW"/>
                         <outlet property="placeType" destination="7XU-3L-yG7" id="j7Z-FU-w7D"/>
-                        <outlet property="saveButton" destination="1DM-R3-OFK" id="pzr-l7-yp6"/>
+                        <outlet property="saveButton" destination="VoT-hf-b2L" id="vc4-oX-QxE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j1c-nq-BaM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="Odv-9t-84k" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1159" y="75"/>
         </scene>
