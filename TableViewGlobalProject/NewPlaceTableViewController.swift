@@ -11,7 +11,7 @@ class NewPlaceTableViewController: UITableViewController {
 
 	// удалили все методы, тк ячейка статическая, а не динамическая (без идентификатора, настроеная вручную)
 
-	var currentPlace: Place? // тек заведение
+	var currentPlace: Place! // тек заведение
 var newPlace = Place() // инициализация значениями по умолчанию
 	var imageIsChanged = false // для замены фонового изобр нашей картинкой(если пользователь не выбрал из галереи)
 
@@ -19,8 +19,8 @@ var newPlace = Place() // инициализация значениями по �
 	@IBOutlet weak var placeName: UITextField!
 	@IBOutlet weak var placeLocation: UITextField!
 	@IBOutlet weak var placeType: UITextField!
-
 	@IBOutlet weak var saveButton: UIBarButtonItem!
+	@IBOutlet weak var ratingControl: RatingControl!
 
 
 	override func viewDidLoad() {
@@ -98,14 +98,16 @@ var newPlace = Place() // инициализация значениями по �
 		let newPlace = Place(name: placeName.text!,
 							 location: placeLocation.text,
 							 type: placeType.text!,
-							 imageData: imageData)
+							 imageData: imageData,
+							 rating: Double(ratingControl.rating))
 
 		if currentPlace != nil {
-			try! realm.write { // обновляем данные по редактир ячейке в базе данных
+			try! realm.write { // обновляем данные по редактир(существующей) ячейке в базе данных
 				currentPlace?.name = newPlace.name
 				currentPlace?.location = newPlace.location
 				currentPlace?.type = newPlace.type
 				currentPlace?.imageData = newPlace.imageData
+				currentPlace?.rating = newPlace.rating
 			}
 		} else {
 				StorageManager.saveObject(with: newPlace) // сохранение нового объекта в базе данных
@@ -126,9 +128,11 @@ var newPlace = Place() // инициализация значениями по �
 
 			placeImage.image = image
 			placeImage.contentMode = .scaleAspectFill // масштабирование картинки
+
 			placeName.text = currentPlace?.name // присваеваем тек заведению значения из аутлетов
 			placeLocation.text = currentPlace?.location
 			placeType.text = currentPlace?.type
+			ratingControl.rating = Int(currentPlace.rating)
 		}
 	}
 

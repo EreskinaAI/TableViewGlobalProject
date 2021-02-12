@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ADA-AF-NBQ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -165,6 +166,11 @@
                                                 <constraint firstItem="iTd-eB-cGq" firstAttribute="centerX" secondItem="Vbp-ZP-hhE" secondAttribute="centerX" id="DiX-NK-2wo"/>
                                                 <constraint firstItem="iTd-eB-cGq" firstAttribute="centerY" secondItem="Vbp-ZP-hhE" secondAttribute="centerY" id="UdW-ty-gHN"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="iTd-eB-cGq"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -181,17 +187,23 @@
                                 <action selector="cancelAction:" destination="S4H-V4-NWJ" id="2WI-BQ-DaM"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="VoT-hf-b2L"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="VoT-hf-b2L">
+                            <connections>
+                                <segue destination="dqN-rD-77b" kind="unwind" unwindAction="unwindSegueWithSegue:" id="9l2-eh-md0"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="placeImage" destination="qYC-36-hll" id="CFu-G9-MJj"/>
                         <outlet property="placeLocation" destination="GWL-dQ-0ho" id="VOF-CN-wkW"/>
                         <outlet property="placeName" destination="3Od-QZ-n0o" id="eKt-e6-BxW"/>
                         <outlet property="placeType" destination="7XU-3L-yG7" id="j7Z-FU-w7D"/>
+                        <outlet property="ratingControl" destination="iTd-eB-cGq" id="Yt2-Te-kUh"/>
                         <outlet property="saveButton" destination="VoT-hf-b2L" id="vc4-oX-QxE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j1c-nq-BaM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="dqN-rD-77b" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1159" y="75"/>
         </scene>
@@ -244,6 +256,11 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FZr-gU-Apm" customClass="CosmosView" customModule="Cosmos">
+                                                    <rect key="frame" x="246" y="-17" width="240" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="F4Y-r3-Vrd" secondAttribute="trailing" symbolic="YES" id="15g-nY-5Ot"/>
@@ -251,7 +268,6 @@
                                                 <constraint firstItem="Q06-0E-0H5" firstAttribute="top" secondItem="REi-94-Ne1" secondAttribute="top" constant="1.5" id="B15-Iz-ZMH"/>
                                                 <constraint firstItem="uzM-vi-XcC" firstAttribute="leading" secondItem="REi-94-Ne1" secondAttribute="leading" constant="28" id="D9D-LE-kbl"/>
                                                 <constraint firstItem="F4Y-r3-Vrd" firstAttribute="leading" secondItem="uzM-vi-XcC" secondAttribute="trailing" constant="25" id="eTu-fD-1He"/>
-                                                <constraint firstAttribute="trailing" secondItem="Q06-0E-0H5" secondAttribute="trailing" id="gJG-Qd-YCc"/>
                                                 <constraint firstItem="Q06-0E-0H5" firstAttribute="centerY" secondItem="REi-94-Ne1" secondAttribute="centerY" id="nRk-mh-Afn"/>
                                                 <constraint firstAttribute="bottom" secondItem="Q06-0E-0H5" secondAttribute="bottom" constant="1.5" id="qOk-fG-H74"/>
                                             </constraints>
