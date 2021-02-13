@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Cosmos
 
 class NewPlaceTableViewController: UITableViewController {
 
@@ -14,6 +15,7 @@ class NewPlaceTableViewController: UITableViewController {
 	var currentPlace: Place! // тек заведение
 var newPlace = Place() // инициализация значениями по умолчанию
 	var imageIsChanged = false // для замены фонового изобр нашей картинкой(если пользователь не выбрал из галереи)
+	var currentRating = 0.0
 
 	@IBOutlet weak var placeImage: UIImageView! // outlet находится в самом классе, тк ячейки в этоим tableView не custom, а static
 	@IBOutlet weak var placeName: UITextField!
@@ -21,6 +23,7 @@ var newPlace = Place() // инициализация значениями по �
 	@IBOutlet weak var placeType: UITextField!
 	@IBOutlet weak var saveButton: UIBarButtonItem!
 	@IBOutlet weak var ratingControl: RatingControl!
+	@IBOutlet weak var cosmosView: CosmosView!
 
 
 	override func viewDidLoad() {
@@ -38,7 +41,12 @@ var newPlace = Place() // инициализация значениями по �
 		placeName.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
 		// довавляем действие к аутлету через func (#selector) для логики отслеживания кнопки save и текст поля placeName
 
-		setupEditScreen() 
+		setupEditScreen()
+
+		cosmosView.settings.fillMode = .precise // точное заливка звезд в рейтинге
+		cosmosView.didTouchCosmos = { rating in // замыкание отображает рейтинг звезд
+			self.currentRating = rating
+		}
 
 
     }
@@ -99,7 +107,7 @@ var newPlace = Place() // инициализация значениями по �
 							 location: placeLocation.text,
 							 type: placeType.text!,
 							 imageData: imageData,
-							 rating: Double(ratingControl.rating))
+							 rating: currentRating)
 
 		if currentPlace != nil {
 			try! realm.write { // обновляем данные по редактир(существующей) ячейке в базе данных
@@ -132,7 +140,7 @@ var newPlace = Place() // инициализация значениями по �
 			placeName.text = currentPlace?.name // присваеваем тек заведению значения из аутлетов
 			placeLocation.text = currentPlace?.location
 			placeType.text = currentPlace?.type
-			ratingControl.rating = Int(currentPlace.rating)
+			cosmosView.rating = currentPlace.rating
 		}
 	}
 

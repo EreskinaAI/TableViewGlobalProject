@@ -56,7 +56,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 			return filteredPlaces.count // при активной строке поиска количество строк берем из отфильтр массива
 		}
 
-		return arrayOfPlaces.isEmpty ? 0 : arrayOfPlaces.count
+		return arrayOfPlaces.count
     }
 
 
@@ -64,22 +64,15 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
 
-	var place = Place()
 
-	if isFiltering == true { // достаем конкретный объект из опред массива(либо из отфильтр, либо из обычного)
-		place = filteredPlaces[indexPath.row]
-	} else {
-		place = arrayOfPlaces[indexPath.row]
-	}
+	let place = isFiltering ? filteredPlaces[indexPath.row] : arrayOfPlaces[indexPath.row]
+	// достаем конкретный объект из опред массива(либо из отфильтр, либо из обычного)
 
 		cell.nameLabel.text = place.name // обращаемся к св-ву из struct по конкретно вытащенному объекту
 		cell.locationLabel.text = place.location
 		cell.typeLabel.text = place.type
 		cell.imageOfPlace.image = UIImage(data: place.imageData!)
-
-
-		cell.imageOfPlace.layer.cornerRadius = cell.imageOfPlace.frame.size.height / 2 // округлить image view
-		cell.imageOfPlace.clipsToBounds = true  // округлить само изображение (обрезать по границам)
+	cell.cosmosView.rating = place.rating // отобр-е правильного кол-ва звезд(рейтинг) на глав экране
 
         return cell
     }
@@ -115,12 +108,9 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		if segue.identifier == "showDetail" {
 			guard let indexPath = tableView.indexPathForSelectedRow else {return} // достаем индекс по выделенной ячейке
 
-			var place = Place()
-			if isFiltering == true {
-				place = filteredPlaces[indexPath.row] // попадаем на экран с деталями в зависимости от массива(отфильтр или нет)
-			} else {
-				place = arrayOfPlaces[indexPath.row]
-			}
+			let place = isFiltering ?  filteredPlaces[indexPath.row] : arrayOfPlaces[indexPath.row]
+				// попадаем на экран с деталями в зависимости от массива(отфильтр или нет)
+
 
 			let newPlaceVC = segue.destination as! NewPlaceTableViewController // достучались до экрана перехода
 			newPlaceVC.currentPlace = place// передали объект из выделенной существ ячейки с заведением на новый экран
