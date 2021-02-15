@@ -91,6 +91,19 @@ var newPlace = Place() // инициализация значениями по �
 			view.endEditing(true)
 		}
 	}
+    
+    // MARK: Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier != "showMap" {
+            return
+        }
+        let mapVC = segue.destination as! MapViewController
+        mapVC.place = currentPlace // передаем тек.заведение на карту
+    }
+    
+    
+    
 	func savePlace() { // передаем данные из текстовых полей в соответствии со св-вами struct (сохраняем как отредакттр ячейку, так и новый объект)
 
 		var image: UIImage?
