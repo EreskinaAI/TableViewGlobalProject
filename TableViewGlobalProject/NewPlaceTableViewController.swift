@@ -95,24 +95,31 @@ var newPlace = Place() // инициализация значениями по �
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier != "showMap" {
-            return
+        
+        guard
+            let identifier = segue.identifier,
+            let mapVC = segue.destination as? MapViewController
+            else { return }
+        
+        mapVC.incomeSegueIdenrifier = identifier
+        mapVC.mapViewControllerDelegate = self
+        
+        
+        if identifier == "showPlace" {
+            mapVC.place.name = placeName.text! // передаем значения из полей завед  на карту
+            mapVC.place.location = placeLocation.text
+            mapVC.place.type = placeType.text
+            mapVC.place.imageData = placeImage.image?.pngData()
         }
-        let mapVC = segue.destination as! MapViewController
-        mapVC.place = currentPlace // передаем тек.заведение на карту
+        
     }
     
     
     
 	func savePlace() { // передаем данные из текстовых полей в соответствии со св-вами struct (сохраняем как отредакттр ячейку, так и новый объект)
 
-		var image: UIImage?
-
-		if imageIsChanged == true {
-			image = placeImage.image
-		} else {
-			image = #imageLiteral(resourceName: "imagePlaceholder")  // если пользователь не выбрал свою картинку, то ставим свое фоновое изображение
-		}
+        let image = imageIsChanged ? placeImage.image : #imageLiteral(resourceName: "imagePlaceholder")
+        // если пользователь не выбрал свою картинку, то ставим свое фоновое изображение
 
 		let imageData = image?.pngData() // конверт-я в тип Data (для realm)
 
@@ -227,4 +234,12 @@ extension NewPlaceTableViewController: UIImagePickerControllerDelegate, UINaviga
 		dismiss(animated: true) // закрываем метод после его реализации
 	}
 
+}
+
+extension NewPlaceTableViewController: MapViewControllerDelegate{
+    func getAddress(_address: String?) {
+        placeLocation.text = _address
+    }
+    
+    
 }
