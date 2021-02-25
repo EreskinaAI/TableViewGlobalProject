@@ -237,8 +237,8 @@ extension NewPlaceTableViewController: UIImagePickerControllerDelegate, UINaviga
 }
 
 extension NewPlaceTableViewController: MapViewControllerDelegate{
-    func getAddress(_address: String?) {
-        placeLocation.text = _address
+    func getAddress(_ address: String?) {
+        placeLocation.text = address
     }
     
     

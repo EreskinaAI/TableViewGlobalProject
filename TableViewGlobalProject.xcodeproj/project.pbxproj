@@ -19,6 +19,7 @@
 		7AF2008425ACFABD0032E707 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2008325ACFABD0032E707 /* MainViewController.swift */; };
 		7AF2008925AE40340032E707 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2008825AE40340032E707 /* CustomTableViewCell.swift */; };
 		7AFC014625C202F300DCAD6B /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFC014525C202F300DCAD6B /* StorageManager.swift */; };
+		954BFE1425E7E07C00346B29 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BFE1325E7E07C00346B29 /* MapManager.swift */; };
 		AEC303C8C03FF30C7B562056 /* Pods_TableViewGlobalProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00FD6F00C164D51175F722B1 /* Pods_TableViewGlobalProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		7AF2008325ACFABD0032E707 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7AF2008825AE40340032E707 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		7AFC014525C202F300DCAD6B /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		954BFE1325E7E07C00346B29 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		B3E31BD6BFA5971C63455172 /* Pods-TableViewGlobalProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableViewGlobalProject.release.xcconfig"; path = "Target Support Files/Pods-TableViewGlobalProject/Pods-TableViewGlobalProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,19 +77,11 @@
 		7AF2006C25ACF64C0032E707 /* TableViewGlobalProject */ = {
 			isa = PBXGroup;
 			children = (
-				7AF2006D25ACF64C0032E707 /* AppDelegate.swift */,
-				7A66E2CE25B0D2E60075ACF4 /* PlaceModel.swift */,
-				7AFC014525C202F300DCAD6B /* StorageManager.swift */,
-				7AF2008825AE40340032E707 /* CustomTableViewCell.swift */,
-				7A9CAE5225D31268004C758B /* RatingControl.swift */,
-				7AF2008325ACFABD0032E707 /* MainViewController.swift */,
-				7A66E2D625B0FF260075ACF4 /* NewPlaceTableViewController.swift */,
-				7A78957C25D87F8B003C1D41 /* MapViewController.swift */,
-				7AF2006F25ACF64C0032E707 /* SceneDelegate.swift */,
-				7AF2007325ACF64C0032E707 /* Main.storyboard */,
-				7AF2007825ACF64E0032E707 /* LaunchScreen.storyboard */,
-				7AF2007625ACF64E0032E707 /* Assets.xcassets */,
-				7AF2007B25ACF64E0032E707 /* Info.plist */,
+				954BFE1B25E83B5A00346B29 /* View Controllers */,
+				954BFE1D25E83C0500346B29 /* Helpers */,
+				954BFE1C25E83BC800346B29 /* Models */,
+				954BFE1E25E83C3B00346B29 /* Support Files */,
+				954BFE1F25E83D1400346B29 /* IBuilder */,
 			);
 			path = TableViewGlobalProject;
 			sourceTree = "<group>";
@@ -98,6 +92,55 @@
 				00FD6F00C164D51175F722B1 /* Pods_TableViewGlobalProject.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		954BFE1B25E83B5A00346B29 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2008325ACFABD0032E707 /* MainViewController.swift */,
+				7A66E2D625B0FF260075ACF4 /* NewPlaceTableViewController.swift */,
+				7A78957C25D87F8B003C1D41 /* MapViewController.swift */,
+				7AF2008825AE40340032E707 /* CustomTableViewCell.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		954BFE1C25E83BC800346B29 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7A66E2CE25B0D2E60075ACF4 /* PlaceModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		954BFE1D25E83C0500346B29 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				7AFC014525C202F300DCAD6B /* StorageManager.swift */,
+				954BFE1325E7E07C00346B29 /* MapManager.swift */,
+				7A9CAE5225D31268004C758B /* RatingControl.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		954BFE1E25E83C3B00346B29 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2006F25ACF64C0032E707 /* SceneDelegate.swift */,
+				7AF2007625ACF64E0032E707 /* Assets.xcassets */,
+				7AF2006D25ACF64C0032E707 /* AppDelegate.swift */,
+				7AF2007B25ACF64E0032E707 /* Info.plist */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		954BFE1F25E83D1400346B29 /* IBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				7AF2007325ACF64C0032E707 /* Main.storyboard */,
+				7AF2007825ACF64E0032E707 /* LaunchScreen.storyboard */,
+			);
+			path = IBuilder;
 			sourceTree = "<group>";
 		};
 		A095D7F6A0E90D67D9D59B45 /* Pods */ = {
@@ -229,6 +272,7 @@
 				7AFC014625C202F300DCAD6B /* StorageManager.swift in Sources */,
 				7A78957D25D87F8B003C1D41 /* MapViewController.swift in Sources */,
 				7A9CAE5325D31268004C758B /* RatingControl.swift in Sources */,
+				954BFE1425E7E07C00346B29 /* MapManager.swift in Sources */,
 				7AF2008925AE40340032E707 /* CustomTableViewCell.swift in Sources */,
 				7AF2007025ACF64C0032E707 /* SceneDelegate.swift in Sources */,
 				7A66E2D725B0FF260075ACF4 /* NewPlaceTableViewController.swift in Sources */,
@@ -381,7 +425,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KUSDFW5AQ8;
-				INFOPLIST_FILE = TableViewGlobalProject/Info.plist;
+				INFOPLIST_FILE = "TableViewGlobalProject/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -401,7 +445,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KUSDFW5AQ8;
-				INFOPLIST_FILE = TableViewGlobalProject/Info.plist;
+				INFOPLIST_FILE = "TableViewGlobalProject/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
